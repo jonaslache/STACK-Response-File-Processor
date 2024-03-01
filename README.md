@@ -11,7 +11,17 @@ A Python tool to extract information from Moodle response files.
 
 The *STACK Response File Processor* is a Python tool with a graphical user
 interface. It is designed to streamline the extraction of information from
-student responses to STACK questions within Moodle quizzes.
+student responses to STACK questions within Moodle quizzes, including:
+
+- Value and state (valid, invalid, score) of STACK input fields 
+- The score of the potential response trees and whether the PRTs were active
+- STACKrate evaluation results (see
+    <https://www.ruhr-uni-bochum.de/stackrate-maths/>)
+
+The tool provides an automatic detection of input field and PRT names that are
+available in the response file. Another convenient feature is the conversion of
+the strings in the "Time spent" column (e.g. 14 mins 7 secs) to seconds
+(e.g. 847) for better processing.
 
 
 ## Prerequisites
@@ -52,6 +62,7 @@ license.
 
 By using the tool, you agree to comply with the terms of the GPL-3.0-or-later
 license. For more information about the license or to obtain a copy of the full
-license text, please visit \<add link to GPL-3.0-or-later.txt file \>.
+license text, please visit
+<https://github.com/jonaslache/STACK-Response-File-Processor?tab=GPL-3.0-1-ov-file>.
 If you have any questions or concerns regarding the licensing terms, please
 contact [jonas.lache@hs-ruhrwest.de](mailto:jonas.lache@hs-ruhrwest.de).
