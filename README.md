@@ -7,6 +7,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
 
 A Python tool to extract information from Moodle response files.
 
+## Version v0.2
+
+On 12th April 2024, version v0.2 of the Response File Processor has been released. The following features have been added:
+
+- Option to create a column with the random seed used in each attempt.
+- Option to specify a list of strings that the tool searches for in each row of the quiz data. The column will be filled with boolean values (True or False), depending on whether each strings are present in the individual rows. For example, the list of strings may include answer notes (e.g. `prt1-1-F`) or answer test results (e.g. `ATList_wrongentries`).
+
 ## About
 
 The *STACK Response File Processor* is a Python tool with a graphical user
@@ -15,6 +22,8 @@ student responses to STACK questions within Moodle quizzes, including:
 
 - Value and state (valid, invalid, score) of STACK input fields 
 - The score of the potential response trees and whether the PRTs were active
+- Information about whether user-specified strings are present in each row of the quiz data (True/False).
+- The [random seed](https://en.wikipedia.org/wiki/Random_seed) used in the specific attempt
 - STACKrate evaluation results (see
     <https://www.ruhr-uni-bochum.de/stackrate-maths/>)
 
