@@ -47,7 +47,7 @@ def get_survey_results(str):
     return None
 
 # Function to extract either ratings or comments from STACKrate evaluation dict
-def extract_info(dictionary, key, attr=""):
+def extract_survey_info(dictionary, key, attr=""):
     if dictionary and key in dictionary:
         if attr=="":
             return dictionary[key]
@@ -322,8 +322,8 @@ def process_input_strings():
                 all_stackrate_keys.update(survey_result.keys())
         # Create columns for all IDs:
         for key in all_stackrate_keys:
-            df[f"{selected_col.get()}: STACKrate ratings to ID {key}"] = df[f"{selected_col.get()}: Survey_Results"].apply(lambda x: extract_info(x, key, attr="ratings"))
-            df[f"{selected_col.get()}: STACKrate comments to ID {key}"] = df[f"{selected_col.get()}: Survey_Results"].apply(lambda x: extract_info(x, key, attr="comment"))
+            df[f"{selected_col.get()}: STACKrate ratings to ID {key}"] = df[f"{selected_col.get()}: Survey_Results"].apply(lambda x: extract_survey_info(x, key, attr="ratings"))
+            df[f"{selected_col.get()}: STACKrate comments to ID {key}"] = df[f"{selected_col.get()}: Survey_Results"].apply(lambda x: extract_survey_info(x, key, attr="comment"))
         df.drop(f"{selected_col.get()}: Survey_Results", axis=1, inplace=True)
     
     if var_checkbox_randseed.get():
