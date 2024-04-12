@@ -94,6 +94,16 @@ def get_input_value(response_str, input_name, mode=""):
     else:
         return None
 
+# Returns the random seed in a given attempt
+def get_random_seed(response_str):
+    pattern = r"Seed:\s*(\d+)"
+    match = re.search(pattern, response_str)
+    if match:
+        input_value = match.group(1)
+        return input_value
+    else:
+        return None
+
 # Makes the radio buttons for the language selection visible in the GUI
 def show_language_radiobuttons():
     checkbox_seconds_row = checkbox_seconds.grid_info()["row"]
@@ -255,6 +265,8 @@ def submit_columns():
     i=i+2+len(time_languages)
     checkbox_stackrate.grid(row=i)
     i+=1
+    checkbox_randseed.grid(row=i)
+    i+=1
     process_button.grid(row=i)
     del df[f"{selected_col.get()}: identified_placeholders"]
 
@@ -298,6 +310,8 @@ def process_input_strings():
             df[f"{selected_col.get()}: STACKrate ratings to ID {key}"] = df[f"{selected_col.get()}: Survey_Results"].apply(lambda x: extract_info(x, key, attr="ratings"))
             df[f"{selected_col.get()}: STACKrate comments to ID {key}"] = df[f"{selected_col.get()}: Survey_Results"].apply(lambda x: extract_info(x, key, attr="comment"))
         df.drop(f"{selected_col.get()}: Survey_Results", axis=1, inplace=True)
+    if var_checkbox_randseed.get():
+        df["Random seed"] = df[selected_col.get()].apply(get_random_seed)
     input_checkboxes_label.grid_forget()
     for box in input_checkboxes:
         box.grid_forget()
@@ -310,6 +324,7 @@ def process_input_strings():
     checkbox_seconds.grid_forget()
     hide_language_radiobuttons()
     checkbox_stackrate.grid_forget()
+    checkbox_randseed.grid_forget()
     process_button.grid_forget()
     export_button_info.grid(row=1)
     export_button.grid(row=2)
@@ -364,6 +379,11 @@ for language in list(time_languages.keys()):
 var_checkbox_stackrate = tk.BooleanVar()
 checkbox_stackrate = tk.Checkbutton(root, text="Insert columns for STACKrate evaluation results",
     variable=var_checkbox_stackrate)
+
+# GUI elements for random seed feature:
+var_checkbox_randseed = tk.BooleanVar()
+checkbox_randseed = tk.Checkbutton(root, text="Insert column for random seeds",
+    variable=var_checkbox_randseed)
 process_button = tk.Button(root, text="Submit", command=process_input_strings)
 
 # GUI elements for export

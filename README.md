@@ -15,6 +15,7 @@ student responses to STACK questions within Moodle quizzes, including:
 
 - Value and state (valid, invalid, score) of STACK input fields 
 - The score of the potential response trees and whether the PRTs were active
+- The [random seed](https://en.wikipedia.org/wiki/Random_seed) used in the specific attempt
 - STACKrate evaluation results (see
     <https://www.ruhr-uni-bochum.de/stackrate-maths/>)
 
