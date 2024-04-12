@@ -6,7 +6,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
 # Import necessary libraries
 import tkinter as tk
 from tkinter import filedialog
-from tkinter import ttk
+from tkinter import ttk, Text
 import pandas as pd
 import re
 import json
@@ -103,6 +103,11 @@ def get_random_seed(response_str):
         return input_value
     else:
         return None
+
+# Returns True when `search_item` is included in `response_str` string
+def is_present(response_str, search_item):
+    result = search_item in response_str
+    return result
 
 # Makes the radio buttons for the language selection visible in the GUI
 def show_language_radiobuttons():
@@ -261,6 +266,10 @@ def submit_columns():
     i+=1
     additional_options_label.grid(row=i)
     i+=1
+    textarea_label.grid(row=i)
+    i+=1
+    textarea.grid(row=i)
+    i+=1
     checkbox_seconds.grid(row=i)
     i=i+2+len(time_languages)
     checkbox_stackrate.grid(row=i)
@@ -298,6 +307,12 @@ def process_input_strings():
     for prt in selected_prt_checkboxes:
         df[f"{selected_col.get()}: {prt} active"] = df[selected_col.get()].apply(lambda x: is_prt_active(x, prt))
         df[f"{selected_col.get()}: {prt} score"] = df[selected_col.get()].apply(lambda x: get_prt_score(x, prt))
+    # Create columns for strings specified in text area
+    textarea_content = textarea.get('1.0','end').strip()
+    if textarea_content!="":
+        for string in textarea_content.split(","):
+            item = string.strip()
+            df[f"{item} present"] = df[selected_col.get()].apply(lambda x: is_present(x, item))
     if var_checkbox_stackrate.get():
         df[f"{selected_col.get()}: Survey_Results"] = df[selected_col.get()].apply(get_survey_results)
         # Extract all STACKrate IDs:
@@ -310,6 +325,7 @@ def process_input_strings():
             df[f"{selected_col.get()}: STACKrate ratings to ID {key}"] = df[f"{selected_col.get()}: Survey_Results"].apply(lambda x: extract_info(x, key, attr="ratings"))
             df[f"{selected_col.get()}: STACKrate comments to ID {key}"] = df[f"{selected_col.get()}: Survey_Results"].apply(lambda x: extract_info(x, key, attr="comment"))
         df.drop(f"{selected_col.get()}: Survey_Results", axis=1, inplace=True)
+    
     if var_checkbox_randseed.get():
         df["Random seed"] = df[selected_col.get()].apply(get_random_seed)
     input_checkboxes_label.grid_forget()
@@ -321,6 +337,8 @@ def process_input_strings():
         box.grid_forget()
     sep2.grid_forget()
     additional_options_label.grid_forget()
+    textarea_label.grid_forget()
+    textarea.grid_forget()
     checkbox_seconds.grid_forget()
     hide_language_radiobuttons()
     checkbox_stackrate.grid_forget()
@@ -356,6 +374,10 @@ prt_checkboxes_label = tk.Label(root,
 additional_options_label = tk.Label(root,
         text="In addition, you can choose the following options (optional):")
 sep2 = ttk.Separator(root,orient='horizontal')
+
+# GUI elements for text area:
+textarea_label = tk.Label(root, text="Comma-separated list of strings for which the quiz data will be searched (e.g. PRT answer notes such as prt1-1-F).\nFor each string specified, a column will be created that contains True or False, depending on whether it is present in the respective row.")
+textarea = tk.Text(root, height=3)
 
 # GUI elements for "Time to seconds" feature:
 var_checkbox_seconds = tk.BooleanVar()
