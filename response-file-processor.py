@@ -220,7 +220,9 @@ def submit_columns():
     input_names = set()
     global prts
     prts = set()
+    # Add temporary column with identified prt and input names as entries:
     df[f"{selected_col.get()}: identified_placeholders"] = df[selected_col.get()].apply(identify_prts_inputs)
+    # Create lists with input and prt names:
     for result in df[f"{selected_col.get()}: identified_placeholders"]:
         if result:
             input_names.update(result["inputs"])
@@ -228,6 +230,7 @@ def submit_columns():
     i=1
     input_checkboxes_label.grid(row=i)
     i+=1
+    # Create checkbox for each input name:
     global input_checkboxes
     input_checkboxes = []
     for input in input_names:
@@ -247,6 +250,7 @@ def submit_columns():
     i+=1
     prt_checkboxes_label.grid(row=i)
     i+=1
+    # Create checkbox for each prt name:
     global prt_checkboxes
     prt_checkboxes = []
     for prt in prts:
@@ -277,6 +281,7 @@ def submit_columns():
     checkbox_randseed.grid(row=i)
     i+=1
     process_button.grid(row=i)
+    # Delete temporary column:
     del df[f"{selected_col.get()}: identified_placeholders"]
 
 # Function which is called when the clicks the "Save CSV file" button in GUI.
@@ -294,6 +299,7 @@ def export_csv_file():
 # Function where most of the "magic" happens. Called when clicking on "Submit".
 # Depending on user's wishes, all columns are created
 def process_input_strings():
+    # Create "Seconds taken" column depending on user's choices:
     if var_checkbox_seconds.get():
         time_values = time_languages[selected_lang.get()][0]
         df_key = time_languages[selected_lang.get()][1]
@@ -301,9 +307,11 @@ def process_input_strings():
              df["Seconds taken"] = df[df_key].apply(lambda x: string_time_to_sec(x,time_values))
         except:
             print("There is an error finding the column that contains the time information. Please make sure you selected the correct language.")
+    # Create columns for selected input fields:
     for input_field in selected_input_checkboxes:
         df[f"{selected_col.get()}: {input_field} value"] = df[selected_col.get()].apply(lambda x: get_input_value(x, input_field, mode="value"))
         df[f"{selected_col.get()}: {input_field} state"] = df[selected_col.get()].apply(lambda x: get_input_value(x, input_field, mode="state"))
+    # Create columns for selected prts:
     for prt in selected_prt_checkboxes:
         df[f"{selected_col.get()}: {prt} active"] = df[selected_col.get()].apply(lambda x: is_prt_active(x, prt))
         df[f"{selected_col.get()}: {prt} score"] = df[selected_col.get()].apply(lambda x: get_prt_score(x, prt))
@@ -313,6 +321,7 @@ def process_input_strings():
         for string in textarea_content.split(","):
             item = string.strip()
             df[f"{item} present"] = df[selected_col.get()].apply(lambda x: is_present(x, item))
+    # Create STACKrate survey columns depending on user's choices:
     if var_checkbox_stackrate.get():
         df[f"{selected_col.get()}: Survey_Results"] = df[selected_col.get()].apply(get_survey_results)
         # Extract all STACKrate IDs:
@@ -325,7 +334,7 @@ def process_input_strings():
             df[f"{selected_col.get()}: STACKrate ratings to ID {key}"] = df[f"{selected_col.get()}: Survey_Results"].apply(lambda x: extract_survey_info(x, key, attr="ratings"))
             df[f"{selected_col.get()}: STACKrate comments to ID {key}"] = df[f"{selected_col.get()}: Survey_Results"].apply(lambda x: extract_survey_info(x, key, attr="comment"))
         df.drop(f"{selected_col.get()}: Survey_Results", axis=1, inplace=True)
-    
+    # Create colum with random seeds depending on user's choices:
     if var_checkbox_randseed.get():
         df["Random seed"] = df[selected_col.get()].apply(get_random_seed)
     input_checkboxes_label.grid_forget()
@@ -347,25 +356,25 @@ def process_input_strings():
     export_button_info.grid(row=1)
     export_button.grid(row=2)
 
-# Closes GUI window
+# Closes GUI window:
 def close_window():
     root.destroy()
 
-# GUI setup
+# GUI setup:
 root = tk.Tk()
 root.title("STACK Response File Processor")
 
-# GUI elements for opening the input csv file
+# GUI elements for opening the input csv file:
 open_button_info = tk.Label(root, text="Click on the following button to select a CSV file:")
 open_button_info.grid(row=1)
 open_button = tk.Button(root, text="Open CSV file", command=open_csv_file)
 open_button.grid(row=2)
 
-# GUI elements for selecting the columns
+# GUI elements for selecting the columns:
 spalten_label = tk.Label(root, text="Your CSV file contains the following columns. \nPlease select the one that relate to a STACK task and from which you wish to extract information about student responses.")
 submit_button_cols = tk.Button(root, text="Submit", command=submit_columns)
 
-# GUI elements for selecting the desired input and prt names
+# GUI elements for selecting the desired input and prt names:
 input_checkboxes_label = tk.Label(root,
         text="The following input names have been found in your column. Please select those that you want to get a report for.")
 sep1 = ttk.Separator(root,orient='horizontal')
@@ -386,8 +395,8 @@ checkbox_seconds = tk.Checkbutton(root, text="Insert column for time spent in se
 radio_language_label = tk.Label(root, text="Please select the language of your input file:")
 lang_radiobuttons = []
 selected_lang = tk.StringVar()
+# Create radiobutton for each language:
 for language in list(time_languages.keys()):
-    # Create radiobutton for each langaue:
     radiobutton = tk.Radiobutton(
         root,
         text=language,
@@ -408,11 +417,11 @@ checkbox_randseed = tk.Checkbutton(root, text="Insert column for random seeds",
     variable=var_checkbox_randseed)
 process_button = tk.Button(root, text="Submit", command=process_input_strings)
 
-# GUI elements for export
+# GUI elements for export:
 export_button_info = tk.Label(root, text="Click on the following button to select a storage location for the output file and start the export:")
 export_button = tk.Button(root, text="Save CSV file", command=export_csv_file)
 
-# GUI elements for the close page
+# GUI elements for the close page:
 success_text = tk.Label(root, text="The file has been saved successfully!")
 close_button = tk.Button(root, text="Close", command=close_window)
 
