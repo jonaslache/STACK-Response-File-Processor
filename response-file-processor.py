@@ -284,7 +284,7 @@ def submit_columns():
     # Delete temporary column:
     del df[f"{selected_col.get()}: identified_placeholders"]
 
-# Function which is called when the clicks the "Save CSV file" button in GUI.
+# Function which is called when user clicks the "Save CSV file" button in GUI.
 # Opens file dialog for output file, exports file, shows "Close" button
 def export_csv_file():
     export_filename = filedialog.asksaveasfilename(filetypes=[("CSV text files", "*.csv")])
@@ -371,7 +371,7 @@ open_button = tk.Button(root, text="Open CSV file", command=open_csv_file)
 open_button.grid(row=2)
 
 # GUI elements for selecting the columns:
-spalten_label = tk.Label(root, text="Your CSV file contains the following columns. \nPlease select the one that relate to a STACK task and from which you wish to extract information about student responses.")
+spalten_label = tk.Label(root, text="Your CSV file contains the following columns. \nPlease select the one that relates to a STACK task and from which you wish to extract information about student responses.")
 submit_button_cols = tk.Button(root, text="Submit", command=submit_columns)
 
 # GUI elements for selecting the desired input and prt names:
