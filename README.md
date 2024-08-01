@@ -38,7 +38,10 @@ the strings in the "Time spent" column (e.g. 14 mins 7 secs) to seconds
 Before using the tool, ensure you have the following prerequisites:
 
 1. Python installed on your system (version 3.6 or higher).
-1. Required Python libraries: `tkinter`, `pandas`, `re` and `json`
+1. Required Python libraries: `tkinter`, `pandas`, `re` and `json`:
+   - Instructions on how to install `tkinter` can be found [here](https://www.pythonguis.com/installation/install-tkinter-windows/) (Windows) and [here](https://www.pythonguis.com/installation/install-tkinter-mac/) (macOS).
+   - Instructions on how to install `pandas` can be found [here](https://pandas.pydata.org/pandas-docs/stable/getting_started/install.html#installing-from-pypi).
+   - `re` and `json` are likely to be pre-installed.
 
 ## Usage
 
@@ -55,14 +58,38 @@ To use the Python tool, follow these steps:
     1. Click on the "Download" button.
 
 1. Run the Tool: Open the command line or terminal, navigate to the directory
-    where the file `response-file-processor.py` is located, and run the tool
-    with the following command:
+    where the file `response-file-processor.py` is located. When you saved the
+    file in your Downloads folder, the command is likely to be 
+
+    ```
+    cd Downloads
+    ```
+
+1. Run the tool with the following command:
 
     ```
     python3 response-file-processor.py
     ```
 
     When the GUI appears, follow the instructions.
+
+## Citing
+
+If you use the *STACK Response File Processor* for a scientific publication, I would be grateful if you would cite the following [paper](https://zenodo.org/records/12795092):
+
+```bibtex
+@InProceedinbgs{lacheDataProcessionMade2024,
+  title = {Data {{Procession Made Easy}}: {{A Python Tool}} for {{Extracting Information}} from {{Student Responses}} to {{STACK Questions}}},
+  booktitle = {Proceedings of the {{International Meeting}} of the {{STACK Community}} 2024},
+  author = {Lache, Jonas},
+  editor = {Weinmann, Michael},
+  year = {2024},
+  pages = {26--32},
+  publisher = {International Meeting of the STACK Community 2024 (STACK Conference 2024)},
+  address = {Amberg},
+  doi = {10.5281/zenodo.12755221}
+}
+```
 
 ## License
 
