@@ -422,9 +422,9 @@ sep2 = ttk.Separator(inner_frame,orient='horizontal')
 
 # GUI elements for text area:
 textarea_label = tk.Label(inner_frame,
-        text="Comma-separated list of strings for which the quiz data will be searched (e.g. PRT answer notes such as prt1-1-F).\nFor each string specified, a column will be created that contains True or False, depending on whether it is present in the respective row.",
+        text="Comma-separated list of strings for which the quiz data will be searched (e.g. PRT answer notes such as prt1-1-F).\nFor each string specified, a column will be created that contains True or False, depending on whether the string is present in the respective row.",
         wraplength=canvas_width-40)
-textarea = tk.Text(inner_frame, height=3)
+textarea = tk.Text(inner_frame, height=3, width=50)
 
 # GUI elements for "Time to seconds" feature:
 var_checkbox_seconds = tk.BooleanVar()
