@@ -112,10 +112,10 @@ def is_present(response_str, search_item):
 # Makes the radio buttons for the language selection visible in the GUI
 def show_language_radiobuttons():
     checkbox_seconds_row = checkbox_seconds.grid_info()["row"]
-    radio_language_label.grid(row=checkbox_seconds_row+1)
+    radio_language_label.grid(row=checkbox_seconds_row+1, padx=20, pady=5)
     i=1
     for button in lang_radiobuttons:
-        button.grid(row=checkbox_seconds_row+1+i)
+        button.grid(row=checkbox_seconds_row+1+i, padx=20, pady=5)
         i+=1
 
 # Makes the radio buttons for the language selection invisible in the GUI
@@ -190,23 +190,23 @@ def open_csv_file():
         options = list(df.keys())
         global col_radiobuttons
         col_radiobuttons = []
-        spalten_label.grid(row=1)
+        spalten_label.grid(row=1, padx=20, pady=5)
         # Create radiobutton for each column in csv file:
         global selected_col
         selected_col = tk.StringVar()
         i=1
         for option in options:
             radiobutton = tk.Radiobutton(
-                root,
+                inner_frame,
                 text=option,
                 value=option,
                 variable=selected_col,
                 tristatevalue=0
             )
             col_radiobuttons.append(radiobutton)
-            radiobutton.grid(row=i+1)
+            radiobutton.grid(row=i+1, padx=20, pady=5)
             i+=1
-        submit_button_cols.grid(row=len(col_radiobuttons)+2)
+        submit_button_cols.grid(row=len(col_radiobuttons)+2, padx=20, pady=5)
         open_button.grid_forget()
         open_button_info.grid_forget()
 
@@ -228,7 +228,7 @@ def submit_columns():
             input_names.update(result["inputs"])
             prts.update(result["prts"])
     i=1
-    input_checkboxes_label.grid(row=i)
+    input_checkboxes_label.grid(row=i, padx=20, pady=5)
     i+=1
     # Create checkbox for each input name:
     global input_checkboxes
@@ -236,19 +236,19 @@ def submit_columns():
     for input in input_names:
         var = tk.BooleanVar()
         checkbox = tk.Checkbutton(
-            root,
+            inner_frame,
             variable=var,
             text=input,
             command=lambda input=input, var=var: update_selected_inputs(input, var),
             tristatevalue=0
         )
         input_checkboxes.append(checkbox)
-        checkbox.grid(row=i)
+        checkbox.grid(row=i, padx=20, pady=5)
         input_checkboxes_states.append(False)
         i+=1
-    sep1.grid(row=i, ipadx=300, pady=10)
+    sep1.grid(row=i, padx=20, ipadx=300, pady=10)
     i+=1
-    prt_checkboxes_label.grid(row=i)
+    prt_checkboxes_label.grid(row=i, padx=20, pady=5)
     i+=1
     # Create checkbox for each prt name:
     global prt_checkboxes
@@ -256,31 +256,31 @@ def submit_columns():
     for prt in prts:
         var = tk.BooleanVar()
         checkbox = tk.Checkbutton(
-            root,
+            inner_frame,
             variable=var,
             text=prt,
             command=lambda prt=prt, var=var: update_selected_prts(prt, var),
             tristatevalue=0
         )
         prt_checkboxes.append(checkbox)
-        checkbox.grid(row=i)
+        checkbox.grid(row=i, padx=20, pady=5)
         prt_checkboxes_states.append(False)
         i+=1
-    sep2.grid(row=i, ipadx=300, pady=10)
+    sep2.grid(row=i, padx=20, ipadx=300, pady=10)
     i+=1
-    additional_options_label.grid(row=i)
+    additional_options_label.grid(row=i, padx=20, pady=5)
     i+=1
-    textarea_label.grid(row=i)
+    textarea_label.grid(row=i, padx=20, pady=5)
     i+=1
-    textarea.grid(row=i)
+    textarea.grid(row=i, padx=20, pady=5)
     i+=1
-    checkbox_seconds.grid(row=i)
+    checkbox_seconds.grid(row=i, padx=20, pady=5)
     i=i+2+len(time_languages)
-    checkbox_stackrate.grid(row=i)
+    checkbox_stackrate.grid(row=i, padx=20, pady=5)
     i+=1
-    checkbox_randseed.grid(row=i)
+    checkbox_randseed.grid(row=i, padx=20, pady=5)
     i+=1
-    process_button.grid(row=i)
+    process_button.grid(row=i, padx=20, pady=5)
     # Delete temporary column:
     del df[f"{selected_col.get()}: identified_placeholders"]
 
@@ -291,8 +291,8 @@ def export_csv_file():
     if ".csv" not in export_filename:
         export_filename+=".csv"
     df.to_csv(export_filename, index=False)
-    success_text.grid(row=1)
-    close_button.grid(row=2)
+    success_text.grid(row=1, padx=20, pady=5)
+    close_button.grid(row=2, padx=20, pady=5)
     export_button_info.grid_forget()
     export_button.grid_forget()
 
@@ -353,8 +353,8 @@ def process_input_strings():
     checkbox_stackrate.grid_forget()
     checkbox_randseed.grid_forget()
     process_button.grid_forget()
-    export_button_info.grid(row=1)
-    export_button.grid(row=2)
+    export_button_info.grid(row=1, padx=20, pady=5)
+    export_button.grid(row=2, padx=20, pady=5)
 
 # Closes GUI window:
 def close_window():
@@ -364,41 +364,81 @@ def close_window():
 root = tk.Tk()
 root.title("STACK Response File Processor")
 
+# Set the width and height for the main window
+window_width = 650
+window_height = 800
+root.geometry(f"{window_width}x{window_height}")
+
+# Create a Frame for the Canvas and Scrollbar
+frame = tk.Frame(root)
+frame.grid(row=0, column=0, sticky='nsew')
+
+# Set fixed width for the canvas
+canvas_width = window_width-50
+canvas_height = window_height-50
+canvas = tk.Canvas(frame, width=canvas_width, height=canvas_height)
+canvas.grid(row=0, column=0, sticky='nsew')
+
+# Add a vertical Scrollbar to the Canvas
+scrollbar = tk.Scrollbar(frame, orient="vertical", command=canvas.yview)
+scrollbar.grid(row=0, column=1, sticky='ns')
+
+# Create another Frame inside the Canvas
+inner_frame = tk.Frame(canvas)
+
+# Create a window in the canvas
+canvas.create_window((canvas_width/2, 0), window=inner_frame, anchor='n')
+
+# Configure the scrollbar and canvas
+inner_frame.bind("<Configure>", lambda e: canvas.configure(scrollregion=canvas.bbox("all")))
+canvas.configure(yscrollcommand=scrollbar.set)
+
 # GUI elements for opening the input csv file:
-open_button_info = tk.Label(root, text="Click on the following button to select a CSV file:")
-open_button_info.grid(row=1)
-open_button = tk.Button(root, text="Open CSV file", command=open_csv_file)
-open_button.grid(row=2)
+open_button_info = tk.Label(inner_frame,
+        text="Click on the following button to select a CSV file:",
+        wraplength=canvas_width-40)
+open_button_info.grid(row=1, padx=20, pady=5)
+open_button = tk.Button(inner_frame, text="Open CSV file", command=open_csv_file)
+open_button.grid(row=2, padx=20, pady=5)
 
 # GUI elements for selecting the columns:
-spalten_label = tk.Label(root, text="Your CSV file contains the following columns. \nPlease select the one that relates to a STACK task and from which you wish to extract information about student responses.")
-submit_button_cols = tk.Button(root, text="Submit", command=submit_columns)
+spalten_label = tk.Label(inner_frame,
+        text="Your CSV file contains the following columns. \nPlease select the one that relates to a STACK task and from which you wish to extract information about student responses.",
+        wraplength=canvas_width-40)
+submit_button_cols = tk.Button(inner_frame, text="Submit", command=submit_columns)
 
 # GUI elements for selecting the desired input and prt names:
-input_checkboxes_label = tk.Label(root,
-        text="The following input names have been found in your column. Please select those that you want to get a report for.")
-sep1 = ttk.Separator(root,orient='horizontal')
-prt_checkboxes_label = tk.Label(root,
-        text="The following PRT names have been found in your column. Please select those that you want to get a report for.")
-additional_options_label = tk.Label(root,
-        text="In addition, you can choose the following options (optional):")
-sep2 = ttk.Separator(root,orient='horizontal')
+input_checkboxes_label = tk.Label(inner_frame,
+        text="The following input names have been found in your column. Please select those that you want to get a report for.",
+        wraplength=canvas_width-40)
+sep1 = ttk.Separator(inner_frame,orient='horizontal')
+prt_checkboxes_label = tk.Label(inner_frame,
+        text="The following PRT names have been found in your column. Please select those that you want to get a report for.",
+        wraplength=canvas_width-40)
+additional_options_label = tk.Label(inner_frame,
+        text="In addition, you can choose the following options (optional):",
+        wraplength=canvas_width-40)
+sep2 = ttk.Separator(inner_frame,orient='horizontal')
 
 # GUI elements for text area:
-textarea_label = tk.Label(root, text="Comma-separated list of strings for which the quiz data will be searched (e.g. PRT answer notes such as prt1-1-F).\nFor each string specified, a column will be created that contains True or False, depending on whether it is present in the respective row.")
-textarea = tk.Text(root, height=3)
+textarea_label = tk.Label(inner_frame,
+        text="Comma-separated list of strings for which the quiz data will be searched (e.g. PRT answer notes such as prt1-1-F).\nFor each string specified, a column will be created that contains True or False, depending on whether it is present in the respective row.",
+        wraplength=canvas_width-40)
+textarea = tk.Text(inner_frame, height=3)
 
 # GUI elements for "Time to seconds" feature:
 var_checkbox_seconds = tk.BooleanVar()
-checkbox_seconds = tk.Checkbutton(root, text="Insert column for time spent in seconds (only English and German response files)",
+checkbox_seconds = tk.Checkbutton(inner_frame, text="Insert column for time spent in seconds (only English and German response files)",
     variable=var_checkbox_seconds, command=toggle_seconds_options)
-radio_language_label = tk.Label(root, text="Please select the language of your input file:")
+radio_language_label = tk.Label(inner_frame,
+        text="Please select the language of your input file:",
+        wraplength=canvas_width-40)
 lang_radiobuttons = []
 selected_lang = tk.StringVar()
 # Create radiobutton for each language:
 for language in list(time_languages.keys()):
     radiobutton = tk.Radiobutton(
-        root,
+        inner_frame,
         text=language,
         value=language,
         variable=selected_lang,
@@ -408,21 +448,25 @@ for language in list(time_languages.keys()):
 
 # GUI elements for STACKrate feature:
 var_checkbox_stackrate = tk.BooleanVar()
-checkbox_stackrate = tk.Checkbutton(root, text="Insert columns for STACKrate evaluation results",
+checkbox_stackrate = tk.Checkbutton(inner_frame, text="Insert columns for STACKrate evaluation results",
     variable=var_checkbox_stackrate)
 
 # GUI elements for random seed feature:
 var_checkbox_randseed = tk.BooleanVar()
-checkbox_randseed = tk.Checkbutton(root, text="Insert column for random seeds",
+checkbox_randseed = tk.Checkbutton(inner_frame, text="Insert column for random seeds",
     variable=var_checkbox_randseed)
-process_button = tk.Button(root, text="Submit", command=process_input_strings)
+process_button = tk.Button(inner_frame, text="Submit", command=process_input_strings)
 
 # GUI elements for export:
-export_button_info = tk.Label(root, text="Click on the following button to select a storage location for the output file and start the export:")
-export_button = tk.Button(root, text="Save CSV file", command=export_csv_file)
+export_button_info = tk.Label(inner_frame,
+        text="Click on the following button to select a storage location for the output file and start the export:",
+        wraplength=canvas_width-40)
+export_button = tk.Button(inner_frame, text="Save CSV file", command=export_csv_file)
 
 # GUI elements for the close page:
-success_text = tk.Label(root, text="The file has been saved successfully!")
-close_button = tk.Button(root, text="Close", command=close_window)
+success_text = tk.Label(inner_frame,
+        text="The file has been saved successfully!",
+        wraplength=canvas_width-40)
+close_button = tk.Button(inner_frame, text="Close", command=close_window)
 
 root.mainloop()
