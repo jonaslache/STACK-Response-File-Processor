@@ -3,15 +3,16 @@ Copyright 2024 by Jonas Lache <jonas.lache@hs-ruhrwest.de>
 SPDX-License-Identifier: GPL-3.0-or-later
 -->
 
-# Deleopment History
+# Development History
 
 ## Version 0.3
 
 Released 24th October 2024
 
-1. Fixed issue [#3](https://github.com/jonaslache/STACK-Response-File-Processor/issues/3)
-2. For better clarity, a checkbox has been added that allows users to control the display of the text field for custom strings that the tool searches for (introduced in v0.2).
-3. Updated the docs
+1. Fixed issue [#3](https://github.com/jonaslache/STACK-Response-File-Processor/issues/3).
+1. For better clarity, a checkbox has been added that allows users to control the display of the text field for custom strings that the tool searches for (introduced in v0.2).
+1. Added sample CSV files (English and German) with which the "Resonse File Processor" can be tested.
+1. Updated the docs.
 
 ## Version 0.2
 
