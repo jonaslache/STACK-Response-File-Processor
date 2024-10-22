@@ -17,6 +17,8 @@ released. The following changes have been made:
 1. Added sample CSV files (English and German) with which the "Resonse File Processor" can be tested.
 1. Updated the docs.
 
+For changes in older versions, please see the [development history](Development_history.md) 
+
 ## About
 
 The *STACK Response File Processor* is a Python tool with a graphical user
