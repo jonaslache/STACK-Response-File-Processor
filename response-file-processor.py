@@ -132,6 +132,24 @@ def toggle_seconds_options():
     else:
         hide_language_radiobuttons()
 
+# Makes the textarea visible in the GUI
+def show_textarea():
+    checkbox_textarea_row = checkbox_textarea.grid_info()["row"]
+    textarea_label.grid(row=checkbox_textarea_row+1, padx=20, pady=5)
+    textarea.grid(row=checkbox_textarea_row+2, padx=20, pady=5)
+
+# Makes the textarea invisible in the GUI
+def hide_textarea():
+    textarea_label.grid_forget()
+    textarea.grid_forget()
+
+# Shows/hides textfield for custom strings that the tool searches for
+def toggle_textarea():
+    if var_checkbox_textarea.get():
+        show_textarea()
+    else:
+        hide_textarea()
+
 # Stores input fields that are selected in the GUI
 input_checkboxes_states = []
 selected_input_checkboxes = []
@@ -270,10 +288,8 @@ def submit_columns():
     i+=1
     additional_options_label.grid(row=i, padx=20, pady=5)
     i+=1
-    textarea_label.grid(row=i, padx=20, pady=5)
-    i+=1
-    textarea.grid(row=i, padx=20, pady=5)
-    i+=1
+    checkbox_textarea.grid(row=i, padx=20, pady=5)
+    i+=3
     checkbox_seconds.grid(row=i, padx=20, pady=5)
     i=i+2+len(time_languages)
     checkbox_stackrate.grid(row=i, padx=20, pady=5)
@@ -346,8 +362,8 @@ def process_input_strings():
         box.grid_forget()
     sep2.grid_forget()
     additional_options_label.grid_forget()
-    textarea_label.grid_forget()
-    textarea.grid_forget()
+    checkbox_textarea.grid_forget()
+    hide_textarea()
     checkbox_seconds.grid_forget()
     hide_language_radiobuttons()
     checkbox_stackrate.grid_forget()
@@ -421,8 +437,11 @@ additional_options_label = tk.Label(inner_frame,
 sep2 = ttk.Separator(inner_frame,orient='horizontal')
 
 # GUI elements for text area:
+var_checkbox_textarea = tk.BooleanVar()
+checkbox_textarea = tk.Checkbutton(inner_frame, text="Enter comma-separated list of strings for which the quiz data will be searched",
+        variable=var_checkbox_textarea, command=toggle_textarea)
 textarea_label = tk.Label(inner_frame,
-        text="Comma-separated list of strings for which the quiz data will be searched (e.g. PRT answer notes such as prt1-1-F).\nFor each string specified, a column will be created that contains True or False, depending on whether the string is present in the respective row.",
+        text="For each string specified, a column will be created that contains True or False, depending on whether the string is present in the respective row.\nFor example, you can enter PRT answer notes such as prt1-1-F.",
         wraplength=canvas_width-40)
 textarea = tk.Text(inner_frame, height=3, width=50)
 
