@@ -5,8 +5,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
 
 # Import necessary libraries
 import tkinter as tk
-from tkinter import filedialog
-from tkinter import ttk, Text
+from tkinter import ttk, Text, filedialog
 import pandas as pd
 import re
 import json
@@ -87,7 +86,7 @@ def get_input_value(response_str, input_name, mode=""):
         status = match.group(2)
         if mode=="value" or mode=="":
             return input_value
-        if mode=="state":
+        elif mode=="state":
             return status
         else:
             return None
@@ -132,18 +131,21 @@ def toggle_seconds_options():
     else:
         hide_language_radiobuttons()
 
-# Makes the textarea visible in the GUI
+# Makes the text field for custom strings to be seached for in the quiz data
+# and the corresponding label visible in the GUI
 def show_textarea():
     checkbox_textarea_row = checkbox_textarea.grid_info()["row"]
     textarea_label.grid(row=checkbox_textarea_row+1, padx=20, pady=5)
     textarea.grid(row=checkbox_textarea_row+2, padx=20, pady=5)
 
-# Makes the textarea invisible in the GUI
+# Makes the text field for custom strings to be seached for in the quiz data
+# and the corresponding label invisible in the GUI
 def hide_textarea():
     textarea_label.grid_forget()
     textarea.grid_forget()
 
-# Shows/hides textfield for custom strings that the tool searches for
+# Shows/hides text field for custom strings to be seached for in the quiz data
+# and the corresponding label visible in the GUI
 def toggle_textarea():
     if var_checkbox_textarea.get():
         show_textarea()
@@ -209,7 +211,7 @@ def open_csv_file():
         global col_radiobuttons
         col_radiobuttons = []
         spalten_label.grid(row=1, padx=20, pady=5)
-        # Create radiobutton for each column in csv file:
+        # Create radiobutton for each column in CSV file:
         global selected_col
         selected_col = tk.StringVar()
         i=1
@@ -228,7 +230,8 @@ def open_csv_file():
         open_button.grid_forget()
         open_button_info.grid_forget()
 
-# Function which is called when user subits the answer column via GUI
+# Function which is called when user subits the "Response" column via GUI. The
+# PRT and input names are identified and checkboxes are created for next step
 def submit_columns():
     for button in col_radiobuttons:
         button.grid_forget()
@@ -304,7 +307,7 @@ def submit_columns():
 # Opens file dialog for output file, exports file, shows "Close" button
 def export_csv_file():
     export_filename = filedialog.asksaveasfilename(filetypes=[("CSV text files", "*.csv")])
-    if ".csv" not in export_filename:
+    if export_filename.lower().endswith(".csv"):
         export_filename+=".csv"
     df.to_csv(export_filename, index=False)
     success_text.grid(row=1, padx=20, pady=5)
