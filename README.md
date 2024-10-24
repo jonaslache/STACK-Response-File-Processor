@@ -7,12 +7,17 @@ SPDX-License-Identifier: GPL-3.0-or-later
 
 A Python tool to extract information from Moodle response files.
 
-## Version v0.2
+## Version v0.3
 
-On 12th April 2024, version v0.2 of the Response File Processor has been released. The following features have been added:
+On 24th October 2024, version v0.3 of the *STACK Response File Processor* has been
+released. The following changes have been made:
 
-- Option to create a column with the random seed used in each attempt.
-- Option to specify a list of strings that the tool searches for in each row of the quiz data. The column will be filled with boolean values (True or False), depending on whether each strings are present in the individual rows. For example, the list of strings may include answer notes (e.g. `prt1-1-F`) or answer test results (e.g. `ATList_wrongentries`).
+1. Fixed issue [#3](https://github.com/jonaslache/STACK-Response-File-Processor/issues/3).
+1. For better clarity, a checkbox has been added that allows users to control the display of the text field for custom strings that the tool searches for (introduced in v0.2).
+1. Added sample CSV files (English and German) with which the "Response File Processor" can be tested.
+2. Updated the docs.
+
+For changes in older versions, please see the [development history](Development_history.md).
 
 ## About
 
@@ -32,37 +37,69 @@ available in the response file. Another convenient feature is the conversion of
 the strings in the "Time spent" column (e.g. 14 mins 7 secs) to seconds
 (e.g. 847) for better processing.
 
-
 ## Prerequisites
 
 Before using the tool, ensure you have the following prerequisites:
 
 1. Python installed on your system (version 3.6 or higher).
-1. Required Python libraries: `tkinter`, `pandas`, `re` and `json`
+1. Required Python libraries: `tkinter`, `pandas`, `re` and `json`:
+   - Instructions on how to install `tkinter` can be found [here](https://www.pythonguis.com/installation/install-tkinter-windows/) (Windows) and [here](https://www.pythonguis.com/installation/install-tkinter-mac/) (macOS).
+   - Instructions on how to install `pandas` can be found [here](https://pandas.pydata.org/pandas-docs/stable/getting_started/install.html#installing-from-pypi).
+   - `re` and `json` are likely to be pre-installed.
 
 ## Usage
+
+For users who prefer standalone solutions, experimental standalone files for
+macOS (app) and Windows (exe) are available (see [here](releases)), but it is
+recommended to use the tool via the command line as described below.
 
 To use the Python tool, follow these steps:
 
 1. Download the file `response-file-processor.py` from this repository.
 
-1. Get your data: Export a "Responses" quiz report from Moodle as a CSV file:
+2. Get your data: To get started, you can use a [sample file](sample_data) from
+    this repository. To use your own data, export a "Responses" quiz report from
+    Moodle as a CSV file:
     1. Log in to Moodle and click on the quiz you want to access the report for.
-        Make sure you have the rights to access the student's responses!
-    1. Click on "Results" and select "Responses".
-    1. Choose the attempts that you want to export and choose the output format
+        Make sure you have the rights to access the students' responses!
+    2. Click on "Results" and select "Responses".
+    3. Choose the attempts that you want to export and choose the output format
         `.csv`.
-    1. Click on the "Download" button.
+    4. Click on the "Download" button.
 
-1. Run the Tool: Open the command line or terminal, navigate to the directory
-    where the file `response-file-processor.py` is located, and run the tool
-    with the following command:
+3. Run the tool: Open the command line or terminal, navigate to the directory
+    where the file `response-file-processor.py` is located. When you saved the
+    file in your Downloads folder, the command is likely to be 
+
+    ```
+    cd Downloads
+    ```
+
+4. Run the tool with the following command:
 
     ```
     python3 response-file-processor.py
     ```
 
     When the GUI appears, follow the instructions.
+
+## Citing
+
+If you use the *STACK Response File Processor* for a scientific publication, I would be grateful if you would cite the following [paper](https://zenodo.org/records/12795092):
+
+```bibtex
+@InProceedinbgs{lacheDataProcessionMade2024,
+  title = {Data {{Procession Made Easy}}: {{A Python Tool}} for {{Extracting Information}} from {{Student Responses}} to {{STACK Questions}}},
+  booktitle = {Proceedings of the {{International Meeting}} of the {{STACK Community}} 2024},
+  author = {Lache, Jonas},
+  editor = {Weinmann, Michael},
+  year = {2024},
+  pages = {26--32},
+  publisher = {International Meeting of the STACK Community 2024 (STACK Conference 2024)},
+  address = {Amberg},
+  doi = {10.5281/zenodo.12755221}
+}
+```
 
 ## License
 
