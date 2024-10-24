@@ -50,7 +50,7 @@ Before using the tool, ensure you have the following prerequisites:
 ## Usage
 
 For users who prefer standalone solutions, experimental standalone files for
-macOS (app) and Windows (exe) are available (see [here](releases)), but it is
+macOS (app) and Windows (exe) are available (see [here](https://github.com/jonaslache/STACK-Response-File-Processor/releases)), but it is
 recommended to use the tool via the command line as described below.
 
 To use the Python tool, follow these steps:
