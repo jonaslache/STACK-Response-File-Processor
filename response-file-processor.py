@@ -307,7 +307,7 @@ def submit_columns():
 # Opens file dialog for output file, exports file, shows "Close" button
 def export_csv_file():
     export_filename = filedialog.asksaveasfilename(filetypes=[("CSV text files", "*.csv")])
-    if export_filename.lower().endswith(".csv"):
+    if not export_filename.lower().endswith(".csv"):
         export_filename+=".csv"
     df.to_csv(export_filename, index=False)
     success_text.grid(row=1, padx=20, pady=5)

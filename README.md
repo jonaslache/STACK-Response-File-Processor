@@ -9,15 +9,15 @@ A Python tool to extract information from Moodle response files.
 
 ## Version v0.3
 
-On 24th October 2024, version v0.3 of the Response File Processor has been
+On 24th October 2024, version v0.3 of the *STACK Response File Processor* has been
 released. The following changes have been made:
 
 1. Fixed issue [#3](https://github.com/jonaslache/STACK-Response-File-Processor/issues/3).
 1. For better clarity, a checkbox has been added that allows users to control the display of the text field for custom strings that the tool searches for (introduced in v0.2).
-1. Added sample CSV files (English and German) with which the "Resonse File Processor" can be tested.
-1. Updated the docs.
+1. Added sample CSV files (English and German) with which the "Response File Processor" can be tested.
+2. Updated the docs.
 
-For changes in older versions, please see the [development history](Development_history.md) 
+For changes in older versions, please see the [development history](Development_history.md).
 
 ## About
 
@@ -49,19 +49,25 @@ Before using the tool, ensure you have the following prerequisites:
 
 ## Usage
 
+For users who prefer standalone solutions, experimental standalone files for
+macOS (app) and Windows (exe) are available (see [here](releases)), but it is
+recommended to use the tool via the command line as described below.
+
 To use the Python tool, follow these steps:
 
 1. Download the file `response-file-processor.py` from this repository.
 
-1. Get your data: Export a "Responses" quiz report from Moodle as a CSV file:
+2. Get your data: To get started, you can use a [sample file](sample_data) from
+    this repository. To use your own data, export a "Responses" quiz report from
+    Moodle as a CSV file:
     1. Log in to Moodle and click on the quiz you want to access the report for.
-        Make sure you have the rights to access the student's responses!
-    1. Click on "Results" and select "Responses".
-    1. Choose the attempts that you want to export and choose the output format
+        Make sure you have the rights to access the students' responses!
+    2. Click on "Results" and select "Responses".
+    3. Choose the attempts that you want to export and choose the output format
         `.csv`.
-    1. Click on the "Download" button.
+    4. Click on the "Download" button.
 
-1. Run the Tool: Open the command line or terminal, navigate to the directory
+3. Run the tool: Open the command line or terminal, navigate to the directory
     where the file `response-file-processor.py` is located. When you saved the
     file in your Downloads folder, the command is likely to be 
 
@@ -69,7 +75,7 @@ To use the Python tool, follow these steps:
     cd Downloads
     ```
 
-1. Run the tool with the following command:
+4. Run the tool with the following command:
 
     ```
     python3 response-file-processor.py
