@@ -88,7 +88,7 @@ To use the Python tool, follow these steps:
 If you use the *STACK Response File Processor* for a scientific publication, I would be grateful if you would cite the following [paper](https://zenodo.org/records/12795092):
 
 ```bibtex
-@InProceedinbgs{lacheDataProcessionMade2024,
+@InProceedings{lacheDataProcessionMade2024,
   title = {Data {{Procession Made Easy}}: {{A Python Tool}} for {{Extracting Information}} from {{Student Responses}} to {{STACK Questions}}},
   booktitle = {Proceedings of the {{International Meeting}} of the {{STACK Community}} 2024},
   author = {Lache, Jonas},
