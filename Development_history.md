@@ -5,6 +5,12 @@ SPDX-License-Identifier: GPL-3.0-or-later
 
 # Development History
 
+## Version 0.4
+
+Released 15th August 2025
+
+This is a bug-fix release.
+
 ## Version 0.3
 
 Released 24th October 2024

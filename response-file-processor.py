@@ -176,10 +176,10 @@ def identify_prts_inputs(response_str):
     dict = {}
     for element in list:
         new_el = element.split(": ")
-        if len(new_el)==2:
+        if len(new_el)>1:
             dict[new_el[0]] = new_el[1]
     keys = [*dict]
-    keys = [item for item in keys if item != "Seed" ]
+    keys = [item for item in keys if(item not in ["Seed","found"] and " " not in item)]
     inputs = []
     prts = []
     newdict = {}
