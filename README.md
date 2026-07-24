@@ -44,10 +44,6 @@ Before using the tool, ensure you have the following prerequisites:
 
 ## Usage
 
-For users who prefer standalone solutions, experimental standalone files for
-macOS (app) and Windows (exe) are available (see [here](https://github.com/jonaslache/STACK-Response-File-Processor/releases)), but it is
-recommended to use the tool via the command line as described below.
-
 To use the Python tool, follow these steps:
 
 1. Download the file `response-file-processor.py` from this repository.
