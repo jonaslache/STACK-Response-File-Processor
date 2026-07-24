@@ -7,10 +7,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
 
 A Python tool to extract information from Moodle response files.
 
-## Version v0.4
+## Version v0.5
 
-On 15th August 2025, version v0.4 of the *STACK Response File Processor* has been
-released. This is a bug-fix release.
+On 24th July 2026, version v0.5 of the *STACK Response File Processor* has been
+released. It includes the following minor changes:
+
+1. Changed the name of the column for the duration of the attempt (German and English)
+2. Changed the sample CSV files accordingly
 
 For changes in older versions, please see the [development history](Development_history.md).
 

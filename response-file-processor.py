@@ -27,8 +27,8 @@ time_values_en = {
 # Dictionary for matching the column name for the "time taken" column
 # to the time_values dictionaries
 time_languages = {
-    "German":[time_values_de, "Verbrauchte Zeit"],
-    "English":[time_values_en, "Time taken"]
+    "German":[time_values_de, "Dauer"],
+    "English":[time_values_en, "Duration"]
 }
 
 # Function to extract STACKrate evaluation results

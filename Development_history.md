@@ -5,6 +5,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
 
 # Development History
 
+## Version 0.5
+
+Released 24th July 2026
+
+1. Changed the name of the column for the duration of the attempt (German and English)
+2. Changed the sample CSV files accordingly
+
 ## Version 0.4
 
 Released 15th August 2025
@@ -17,7 +24,7 @@ Released 24th October 2024
 
 1. Fixed issue [#3](https://github.com/jonaslache/STACK-Response-File-Processor/issues/3).
 1. For better clarity, a checkbox has been added that allows users to control the display of the text field for custom strings that the tool searches for (introduced in v0.2).
-1. Added sample CSV files (English and German) with which the "Resonse File Processor" can be tested.
+1. Added sample CSV files (English and German) with which the "Response File Processor" can be tested.
 1. Updated the docs.
 
 ## Version 0.2
